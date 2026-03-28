@@ -1,0 +1,106 @@
+name: Fetch Options Data
+
+on:
+  # Run manually from GitHub Actions tab with custom inputs
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Stock ticker (e.g. MSTR)'
+        required: true
+        default: 'MSTR'
+      option_type:
+        description: 'Option type'
+        required: true
+        default: 'call'
+        type: choice
+        options:
+          - call
+          - put
+      strike:
+        description: 'Target strike price (e.g. 400)'
+        required: true
+        default: '400'
+      range:
+        description: 'Strike range ± dollars (e.g. 5)'
+        required: true
+        default: '5'
+
+  # Also run on a schedule — every 30 minutes on weekdays during US market hours
+  # Uses last saved inputs from data/config.json if present
+  schedule:
+    - cron: '*/30 13-21 * * 1-5'   # 13:00–21:00 UTC = 9am–5pm ET
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit data back to repo
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Determine inputs
+        id: inputs
+        run: |
+          # Manual trigger uses workflow inputs
+          # Scheduled run reads from data/config.json (set by last manual run)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "ticker=${{ github.event.inputs.ticker }}" >> $GITHUB_OUTPUT
+            echo "option_type=${{ github.event.inputs.option_type }}" >> $GITHUB_OUTPUT
+            echo "strike=${{ github.event.inputs.strike }}" >> $GITHUB_OUTPUT
+            echo "range=${{ github.event.inputs.range }}" >> $GITHUB_OUTPUT
+          else
+            # Read from saved config
+            python3 -c "
+          import json, os
+          try:
+              cfg = json.load(open('data/config.json'))
+              for k,v in cfg.items():
+                  print(f'{k}={v}')
+          except:
+              print('ticker=MSTR')
+              print('option_type=call')
+              print('strike=400')
+              print('range=5')
+            " >> $GITHUB_OUTPUT
+          fi
+
+      - name: Save config for scheduled runs
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir -p data
+          python3 -c "
+          import json
+          cfg = {
+              'ticker': '${{ steps.inputs.outputs.ticker }}',
+              'option_type': '${{ steps.inputs.outputs.option_type }}',
+              'strike': '${{ steps.inputs.outputs.strike }}',
+              'range': '${{ steps.inputs.outputs.range }}'
+          }
+          json.dump(cfg, open('data/config.json', 'w'), indent=2)
+          "
+
+      - name: Fetch options data from Yahoo Finance
+        env:
+          TICKER: ${{ steps.inputs.outputs.ticker }}
+          OPTION_TYPE: ${{ steps.inputs.outputs.option_type }}
+          STRIKE: ${{ steps.inputs.outputs.strike }}
+          RANGE: ${{ steps.inputs.outputs.range }}
+        run: python3 fetch_options.py
+
+      - name: Commit and push data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "Update options data $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push

@@ -43,7 +43,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install yfinance pandas
 
       - name: Resolve inputs
         id: cfg

@@ -1,0 +1,6 @@
+{
+  "ticker": "MSTR",
+  "option_type": "put",
+  "strike": "130",
+  "range": "5"
+}

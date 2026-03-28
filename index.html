@@ -20,31 +20,44 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh}
-
-.header{border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:.75rem}
+.header{border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .logo{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--green);text-transform:uppercase}
 .sub{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em}
 .badge{background:var(--green-dim);color:var(--green);font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.15em;padding:2px 8px;border-radius:3px;text-transform:uppercase;margin-left:auto}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
 .wrap{padding:1.25rem 1.5rem;max-width:1200px;margin:0 auto}
 
-.banner{border-radius:6px;padding:.7rem 1rem;font-family:var(--mono);font-size:11px;margin-bottom:.875rem;line-height:1.7;display:flex;gap:.75rem;align-items:flex-start}
-.banner-info{background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.2);color:var(--blue)}
-.banner-warn{background:var(--amber-dim);border:1px solid rgba(251,191,36,.25);color:var(--amber)}
-.banner-err{background:var(--red-dim);border:1px solid rgba(248,113,113,.25);color:var(--red);display:none}
+/* How-it-works banner */
+.how-banner{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.25rem;margin-bottom:1rem;font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.9}
+.how-banner strong{color:var(--text);font-weight:500}
+.how-banner a{color:var(--blue);text-decoration:none}
+.how-banner a:hover{text-decoration:underline}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:.875rem}
+@media(max-width:600px){.how-steps{grid-template-columns:1fr}}
+.how-step{background:var(--bg3);border-radius:6px;padding:.75rem;border:1px solid var(--border)}
+.how-step .sn{color:var(--green);font-weight:600;margin-right:6px}
 
+/* Data status bar */
+.data-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.75rem 1rem;margin-bottom:1rem;font-family:var(--mono);font-size:11px}
+.data-info{color:var(--muted)}
+.data-info strong{color:var(--text)}
+.data-info .stale{color:var(--amber)}
+.refresh-link{
+  color:var(--green);text-decoration:none;border:1px solid var(--green-dim);
+  border-radius:4px;padding:3px 10px;font-size:10px;letter-spacing:.1em;
+  transition:background .15s;
+}
+.refresh-link:hover{background:var(--green-dim)}
+
+/* Filters panel */
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem}
 .ptitle{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem}
-
-/* Search fields */
-.fields{display:grid;grid-template-columns:110px 90px 140px 110px 1fr;gap:10px;align-items:end}
-@media(max-width:650px){.fields{grid-template-columns:1fr 1fr}}
-
+.filter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media(max-width:600px){.filter-grid{grid-template-columns:1fr 1fr}}
 .field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
 input,select{
-  width:100%;height:38px;background:var(--bg3);
+  width:100%;height:36px;background:var(--bg3);
   border:1px solid var(--border2);border-radius:5px;
   color:var(--text);font-family:var(--mono);font-size:13px;
   padding:0 9px;outline:none;transition:border-color .15s;
@@ -53,59 +66,9 @@ input,select{
 input:focus,select:focus{border-color:var(--green)}
 select{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 10px center;
-  padding-right:28px;
-  cursor:pointer;
+  background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;cursor:pointer;
 }
 select option{background:#181c22;color:#e2e8f0}
-
-/* Go button */
-.go{
-  width:100%;height:38px;
-  background:var(--green);color:#0a0c0f;
-  border:none;border-radius:5px;
-  font-family:var(--mono);font-size:11px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;transition:opacity .15s, transform .1s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.go:hover{opacity:.85}
-.go:active{transform:scale(.98)}
-.go:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-/* Advanced toggle */
-.adv-toggle{
-  margin-top:1rem;background:none;border:none;
-  color:var(--muted);font-family:var(--mono);font-size:10px;
-  letter-spacing:.15em;text-transform:uppercase;
-  cursor:pointer;display:flex;align-items:center;gap:6px;padding:0;
-  transition:color .15s;
-}
-.adv-toggle:hover{color:var(--text)}
-.adv-toggle .arrow{transition:transform .2s;display:inline-block;font-style:normal}
-
-/* Advanced fields — use inline style for show/hide to avoid CSS specificity bugs */
-.adv-fields{
-  display:none; /* toggled via JS inline style */
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-  margin-top:1rem;
-  padding-top:1rem;
-  border-top:1px solid var(--border);
-}
-
-/* Progress */
-.progress-wrap{margin-bottom:.875rem;display:none}
-.progress-label{font-family:var(--mono);font-size:11px;color:var(--amber);margin-bottom:6px;display:flex;align-items:center;gap:7px}
-.progress-bar-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
-.progress-bar-fill{height:100%;background:var(--amber);border-radius:2px;transition:width .4s ease;width:0%}
-@keyframes spin{to{transform:rotate(360deg)}}
-.sp{width:10px;height:10px;border:1.5px solid var(--amber);border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
-
-/* Error box */
-.err-box{background:var(--red-dim);border:1px solid rgba(248,113,113,.3);border-radius:6px;padding:.875rem 1rem;font-family:var(--mono);font-size:12px;color:var(--red);margin-bottom:1rem;display:none;line-height:1.6}
-.err-box strong{display:block;margin-bottom:.25rem;font-size:13px}
 
 /* Vol card */
 .vol-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem;display:none}
@@ -125,7 +88,7 @@ select option{background:#181c22;color:#e2e8f0}
 .sig-desc{font-family:var(--mono);font-size:10px;color:var(--muted)}
 
 /* Metrics */
-.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:1rem;display:none}
+.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:1rem}
 .metric{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:.75rem}
 .metric .ml{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
 .metric .mv{font-family:var(--mono);font-size:18px;font-weight:600}
@@ -134,7 +97,6 @@ select option{background:#181c22;color:#e2e8f0}
 .mv.sm{font-size:13px;padding-top:3px}
 
 /* Table */
-.results-wrap{display:none}
 .th{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
 .tl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
 .tc{font-family:var(--mono);font-size:11px;color:var(--muted)}
@@ -160,7 +122,8 @@ tbody tr.top td{background:rgba(34,211,165,.04)}
 .ivh{background:var(--green-dim);color:var(--green)}
 .ivm{background:var(--amber-dim);color:var(--amber)}
 .ivl{background:var(--blue-dim);color:var(--blue)}
-.empty{text-align:center;padding:2.5rem;color:var(--muted);font-family:var(--mono);font-size:12px;line-height:2}
+.empty{text-align:center;padding:3rem;color:var(--muted);font-family:var(--mono);font-size:12px;line-height:2.2}
+.err{color:var(--red);font-family:var(--mono);font-size:12px;padding:1rem 0}
 </style>
 </head>
 <body>
@@ -169,119 +132,52 @@ tbody tr.top td{background:rgba(34,211,165,.04)}
   <div class="dot"></div>
   <span class="logo">OptionsEdge</span>
   <span class="sub">/ premium-per-day screener</span>
-  <span class="badge">★ free · yahoo finance</span>
+  <span class="badge">★ github actions · yahoo finance</span>
 </div>
 
 <div class="wrap">
 
-  <div class="banner banner-info">
-    <span>ℹ</span>
-    <span>Data from Yahoo Finance (~15 min delayed). Save this file and open locally, or host on GitHub Pages. CORS proxies auto-retry on failure.</span>
+  <!-- How it works -->
+  <div class="how-banner" id="how-banner">
+    <strong>How to fetch fresh data:</strong> This page reads from <code>data/options.json</code> generated by a GitHub Actions workflow.
+    <div class="how-steps">
+      <div class="how-step"><span class="sn">1.</span>Go to your repo → <strong>Actions tab</strong></div>
+      <div class="how-step"><span class="sn">2.</span>Click <strong>Fetch Options Data</strong> → <strong>Run workflow</strong></div>
+      <div class="how-step"><span class="sn">3.</span>Enter ticker, type, strike → <strong>Run</strong>. Reload this page when done (~60 sec).</div>
+    </div>
+    <div style="margin-top:.75rem">The workflow also runs automatically every 30 min on weekdays during US market hours, reusing your last search parameters.</div>
   </div>
 
-  <!-- Error box — visible, not just console -->
-  <div class="err-box" id="err-box">
-    <strong id="err-title">Error</strong>
-    <span id="err-msg"></span>
+  <!-- Data status bar (filled by JS) -->
+  <div class="data-bar" id="data-bar" style="display:none">
+    <span class="data-info" id="data-info">Loading…</span>
+    <a class="refresh-link" id="actions-link" href="#" target="_blank">↗ Run workflow to refresh</a>
   </div>
 
+  <!-- Filters -->
   <div class="panel">
-    <div class="ptitle">Search parameters</div>
-    <div class="fields">
-      <div class="field">
-        <label>Ticker</label>
-        <input id="ticker" value="MSTR" oninput="this.value=this.value.toUpperCase()" placeholder="e.g. MSTR"/>
-      </div>
-      <div class="field">
-        <label>Type</label>
-        <select id="opt-type">
-          <option value="call">Call</option>
-          <option value="put">Put</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Target strike ($)</label>
-        <input type="number" id="strike" placeholder="e.g. 400" step="0.5"/>
-      </div>
-      <div class="field">
-        <label>Strike range ±$</label>
-        <input type="number" id="f-range" value="5" min="0" max="500"/>
-      </div>
-      <div class="field">
-        <label>&nbsp;</label>
-        <button class="go" id="go-btn" onclick="runSearch()">
-          <span id="btn-icon">▶</span>
-          <span id="btn-label">Search</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Advanced toggle -->
-    <button class="adv-toggle" id="adv-toggle" onclick="toggleAdv()">
-      <span class="arrow" id="adv-arrow">▸</span>
-      Advanced filters
-    </button>
-
-    <!-- Advanced fields — display toggled via JS to avoid CSS specificity issues -->
-    <div class="adv-fields" id="adv-fields">
-      <div class="field">
-        <label>Min DTE</label>
-        <input type="number" id="f-mindte" value="1" min="1" onchange="render()"/>
-      </div>
-      <div class="field">
-        <label>Max DTE</label>
-        <input type="number" id="f-maxdte" value="365" min="1" onchange="render()"/>
-      </div>
-      <div class="field">
-        <label>Min open interest</label>
-        <input type="number" id="f-oi" value="0" min="0" onchange="render()"/>
-      </div>
-      <div class="field">
-        <label>Min volume</label>
-        <input type="number" id="f-vol" value="0" min="0" onchange="render()"/>
-      </div>
+    <div class="ptitle">Filter loaded data</div>
+    <div class="filter-grid">
+      <div class="field"><label>Min DTE</label><input type="number" id="f-mindte" value="1"   min="1" onchange="render()"/></div>
+      <div class="field"><label>Max DTE</label><input type="number" id="f-maxdte" value="365" min="1" onchange="render()"/></div>
+      <div class="field"><label>Min open interest</label><input type="number" id="f-oi"  value="0" min="0" onchange="render()"/></div>
+      <div class="field"><label>Min volume</label><input type="number" id="f-vol" value="0" min="0" onchange="render()"/></div>
     </div>
   </div>
 
-  <!-- Progress bar -->
-  <div class="progress-wrap" id="progress-wrap">
-    <div class="progress-label">
-      <div class="sp"></div>
-      <span id="progress-label">Fetching…</span>
-    </div>
-    <div class="progress-bar-track">
-      <div class="progress-bar-fill" id="progress-fill"></div>
-    </div>
-  </div>
-
-  <!-- Vol context card -->
+  <!-- Vol card -->
   <div class="vol-card" id="vol-card">
     <div class="ptitle">Volatility context — <span id="vc-ticker"></span> · trailing 1 year</div>
     <div class="vgrid">
+      <div class="vm"><div class="vl">Current HV30</div><div class="vv" id="vc-hv30">—</div><div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px">annualised realised vol</div></div>
       <div class="vm">
-        <div class="vl">Current HV30</div>
-        <div class="vv" id="vc-hv30">—</div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px">annualised realised vol</div>
-      </div>
-      <div class="vm">
-        <div class="vl">HV percentile</div>
-        <div class="vv" id="vc-hvpct">—</div>
+        <div class="vl">HV percentile</div><div class="vv" id="vc-hvpct">—</div>
         <div class="gauge-track"><div class="gauge-fill" id="vc-gauge" style="width:0%"></div></div>
         <div class="gauge-labels"><span>0</span><span>50</span><span>100</span></div>
       </div>
-      <div class="vm">
-        <div class="vl">HV range (1y)</div>
-        <div class="vv" id="vc-range" style="font-size:13px;padding-top:3px">—</div>
-      </div>
-      <div class="vm">
-        <div class="vl">Avg implied vol</div>
-        <div class="vv" id="vc-avgiv" style="color:var(--purple)">—</div>
-      </div>
-      <div class="vm">
-        <div class="vl">IV / HV ratio</div>
-        <div class="vv" id="vc-ratio">—</div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px">&gt;1.3x = rich for sellers</div>
-      </div>
+      <div class="vm"><div class="vl">HV range (1y)</div><div class="vv" id="vc-range" style="font-size:13px;padding-top:3px">—</div></div>
+      <div class="vm"><div class="vl">Avg implied vol</div><div class="vv" id="vc-avgiv" style="color:var(--purple)">—</div></div>
+      <div class="vm"><div class="vl">IV / HV ratio</div><div class="vv" id="vc-ratio">—</div><div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px">&gt;1.3x = rich for sellers</div></div>
     </div>
     <div class="sig-row">
       <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">Seller signal:</span>
@@ -291,16 +187,16 @@ tbody tr.top td{background:rgba(34,211,165,.04)}
   </div>
 
   <!-- Summary metrics -->
-  <div class="metrics" id="metrics">
+  <div class="metrics" id="metrics" style="display:none">
     <div class="metric"><div class="ml">Current price</div><div class="mv" id="m-price">—</div></div>
-    <div class="metric"><div class="ml">Target strike</div><div class="mv amber" id="m-strike">—</div></div>
-    <div class="metric"><div class="ml">Contracts found</div><div class="mv" id="m-count">—</div></div>
+    <div class="metric"><div class="ml">Strike searched</div><div class="mv amber" id="m-strike">—</div></div>
+    <div class="metric"><div class="ml">Contracts loaded</div><div class="mv" id="m-count">—</div></div>
     <div class="metric"><div class="ml">Best P/day</div><div class="mv green" id="m-best">—</div></div>
     <div class="metric"><div class="ml">Best expiry</div><div class="mv sm" id="m-bestexp">—</div></div>
   </div>
 
-  <!-- Results table -->
-  <div class="results-wrap" id="results-wrap">
+  <!-- Results -->
+  <div id="results-wrap" style="display:none">
     <div class="th">
       <span class="tl">Results — ranked by premium / day</span>
       <span class="tc" id="tbl-count"></span>
@@ -330,304 +226,132 @@ tbody tr.top td{background:rgba(34,211,165,.04)}
     </div>
   </div>
 
-</div><!-- /wrap -->
+  <div id="empty-state" class="empty">
+    Waiting for data…<br/>
+    Run the <strong>Fetch Options Data</strong> workflow in your GitHub Actions tab,<br/>
+    then reload this page.
+  </div>
+  <div id="err-msg" class="err" style="display:none"></div>
+
+</div>
 
 <script>
-// ── State ─────────────────────────────────────────────────────────────────
-let allContracts = [], currentPrice = 0, currentHV30 = null;
-let sortKey = 'premium_per_day', sortDir = -1;
-let advOpen = false, searching = false;
+let allContracts=[], sortKey='premium_per_day', sortDir=-1;
 
-// ── CORS proxies — tried in order, auto-fallback ──────────────────────────
-const PROXIES = [
-  u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-  u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-  u => `https://corsproxy.org/?${encodeURIComponent(u)}`,
-  u => `https://proxy.cors.sh/${u}`,
-];
-let lastGoodProxy = 0;
+// Detect repo from current URL so Actions link works automatically
+const repoBase = (() => {
+  const p = location.pathname.split('/').filter(Boolean);
+  // GitHub Pages URL: username.github.io/repo-name/...
+  // We need: github.com/username/repo-name
+  const host = location.hostname; // e.g. username.github.io
+  const user = host.replace('.github.io','');
+  const repo = p[0] || '';
+  return repo ? `https://github.com/${user}/${repo}` : `https://github.com`;
+})();
 
-async function fetchWithProxy(url) {
-  const order = [
-    lastGoodProxy,
-    ...PROXIES.map((_,i)=>i).filter(i=>i!==lastGoodProxy)
-  ];
-  for (const idx of order) {
-    try {
-      const res = await fetch(PROXIES[idx](url), {
-        headers: {'X-Requested-With':'XMLHttpRequest'},
-        signal: AbortSignal.timeout(14000)
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      lastGoodProxy = idx;
-      return data;
-    } catch(e) {
-      console.warn(`Proxy ${idx+1} failed for ${url}:`, e.message);
-    }
-  }
-  throw new Error('All CORS proxies failed. Check your internet connection and try again.');
-}
-
-// ── UI helpers ────────────────────────────────────────────────────────────
-function showErr(title, msg) {
-  document.getElementById('err-title').textContent = title;
-  document.getElementById('err-msg').textContent = msg;
-  document.getElementById('err-box').style.display = 'block';
-}
-function hideErr() {
-  document.getElementById('err-box').style.display = 'none';
-}
-
-function setProgress(pct, label) {
-  document.getElementById('progress-wrap').style.display = 'block';
-  document.getElementById('progress-label').textContent = label;
-  document.getElementById('progress-fill').style.width = pct + '%';
-}
-function hideProgress() {
-  document.getElementById('progress-wrap').style.display = 'none';
-  document.getElementById('progress-fill').style.width = '0%';
-}
-
-function setBtnLoading(loading) {
-  const btn = document.getElementById('go-btn');
-  const icon = document.getElementById('btn-icon');
-  const label = document.getElementById('btn-label');
-  btn.disabled = loading;
-  if (loading) {
-    icon.textContent = '⏳';
-    label.textContent = 'Searching…';
-  } else {
-    icon.textContent = '▶';
-    label.textContent = 'Search';
-  }
-}
-
-// Advanced toggle — use inline style to bypass any CSS specificity issues
-function toggleAdv() {
-  advOpen = !advOpen;
-  const el = document.getElementById('adv-fields');
-  el.style.display = advOpen ? 'grid' : 'none';
-  document.getElementById('adv-arrow').textContent = advOpen ? '▾' : '▸';
-}
-
-// ── HV helpers ────────────────────────────────────────────────────────────
-function calcHV(closes, w=30) {
-  if (closes.length < w+1) return [];
-  const hvs = [];
-  for (let i=w; i<closes.length; i++) {
-    const sl = closes.slice(i-w, i+1);
-    const lr = [];
-    for (let j=1; j<sl.length; j++)
-      if (sl[j]>0 && sl[j-1]>0) lr.push(Math.log(sl[j]/sl[j-1]));
-    const mean = lr.reduce((a,b)=>a+b,0) / lr.length;
-    const v = lr.reduce((a,b)=>a+(b-mean)**2,0) / (lr.length-1);
-    hvs.push(Math.sqrt(v * 252));
-  }
-  return hvs;
-}
-function pctile(arr, val) {
-  return arr.length ? Math.round(arr.filter(x=>x<=val).length/arr.length*100) : 0;
-}
-
-async function fetchHV(ticker) {
-  try {
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1y`;
-    const data = await fetchWithProxy(url);
-    const result = data?.chart?.result?.[0];
-    const closes = (result?.indicators?.quote?.[0]?.close||[]).filter(c=>c!=null&&c>0);
-    const price = result?.meta?.regularMarketPrice || 0;
-    if (closes.length < 35) return { price, hvCtx: null };
-    const hvS = calcHV(closes, 30);
-    if (!hvS.length) return { price, hvCtx: null };
-    const cur = hvS[hvS.length-1];
-    return { price, hvCtx: { currentHV:cur, hvPct:pctile(hvS,cur), hvMin:Math.min(...hvS), hvMax:Math.max(...hvS) } };
-  } catch(e) {
-    console.warn('HV fetch error:', e);
-    return { price: 0, hvCtx: null };
-  }
-}
-
-// ── Main search ────────────────────────────────────────────────────────────
-async function runSearch() {
-  if (searching) return;
-
-  const ticker   = document.getElementById('ticker').value.trim().toUpperCase();
-  const optType  = document.getElementById('opt-type').value;
-  const strikeVal = parseFloat(document.getElementById('strike').value);
-  const range    = parseFloat(document.getElementById('f-range').value) || 5;
-
-  // Validation — show visible errors
-  if (!ticker) { showErr('Missing ticker', 'Please enter a stock ticker symbol.'); return; }
-  if (isNaN(strikeVal) || strikeVal <= 0) { showErr('Missing strike', 'Please enter a target strike price.'); return; }
-
-  searching = true;
-  setBtnLoading(true);
-  hideErr();
-  allContracts = [];
-  document.getElementById('metrics').style.display = 'none';
-  document.getElementById('results-wrap').style.display = 'none';
-  document.getElementById('vol-card').style.display = 'none';
+async function loadData() {
+  document.getElementById('data-bar').style.display = 'flex';
+  document.getElementById('actions-link').href = `${repoBase}/actions/workflows/fetch.yml`;
 
   try {
-    setProgress(5, `Connecting to Yahoo Finance for ${ticker}…`);
-
-    // Fetch expiry list + price + HV in parallel
-    const firstUrl = `https://query1.finance.yahoo.com/v7/finance/options/${ticker}`;
-    const [firstData, hvResult] = await Promise.all([
-      fetchWithProxy(firstUrl),
-      fetchHV(ticker)
-    ]);
-
-    const result = firstData?.optionChain?.result?.[0];
-    if (!result) throw new Error(`No options data found for "${ticker}". Check the ticker symbol.`);
-
-    currentPrice = result.quote?.regularMarketPrice || result.quote?.ask || hvResult.price || 0;
-    currentHV30  = hvResult.hvCtx?.currentHV || null;
-
-    const expiries = result.expirationDates || [];
-    if (!expiries.length) throw new Error('No expiration dates returned from Yahoo Finance.');
-
-    document.getElementById('m-price').textContent  = currentPrice ? '$'+currentPrice.toFixed(2) : '—';
-    document.getElementById('m-strike').textContent = '$'+strikeVal.toFixed(2);
-
-    const today = new Date(); today.setHours(0,0,0,0);
-    let collected = [];
-    const BATCH = 5;
-    const total = expiries.length;
-
-    for (let i=0; i<total; i+=BATCH) {
-      const pct = 10 + Math.round((i/total)*80);
-      setProgress(pct, `Fetching expiry ${Math.min(i+BATCH,total)} of ${total}  (${collected.length} contracts found)…`);
-
-      const batch = expiries.slice(i, i+BATCH);
-      const batchRes = await Promise.all(batch.map(async ts => {
-        try {
-          const url = `https://query1.finance.yahoo.com/v7/finance/options/${ticker}?date=${ts}`;
-          const d   = await fetchWithProxy(url);
-          const r   = d?.optionChain?.result?.[0];
-          if (!r) return [];
-
-          const expDate = new Date(ts*1000); expDate.setHours(0,0,0,0);
-          const dte     = Math.max(1, Math.round((expDate-today)/86400000));
-          const expStr  = expDate.toISOString().slice(0,10);
-          const rows    = optType==='call' ? (r.options?.[0]?.calls||[]) : (r.options?.[0]?.puts||[]);
-
-          return rows
-            .filter(o => Math.abs((o.strike||0) - strikeVal) <= range)
-            .map(o => {
-              const bid = o.bid||0, ask = o.ask||0, mid = (bid+ask)/2;
-              let iv = o.impliedVolatility || null;
-              if (iv && iv > 5) iv = iv/100; // normalise if returned as % instead of decimal
-              const ivVsHv = (iv && currentHV30) ? iv/currentHV30 : null;
-              return {
-                option_type: optType, expiration_date: expStr, dte,
-                strike: o.strike, bid, ask, mid,
-                premium_per_day: dte>0 ? mid/dte : 0,
-                delta_from_price: (o.strike||0) - currentPrice,
-                open_interest: o.openInterest||0,
-                volume: o.volume||0,
-                implied_volatility: iv,
-                iv_vs_hv: ivVsHv,
-                in_the_money: !!o.inTheMoney
-              };
-            });
-        } catch { return []; }
-      }));
-
-      collected = collected.concat(batchRes.flat());
-      if (i+BATCH < total) await new Promise(r=>setTimeout(r,200));
-    }
-
-    allContracts = collected.filter(o => o.mid>0 || o.bid>0);
-    setProgress(100, 'Done');
-
-    if (!allContracts.length) {
-      throw new Error(`No ${optType} contracts found near $${strikeVal} ± $${range} for ${ticker}. Try widening the strike range.`);
-    }
-
-    const ivVals = allContracts.map(o=>o.implied_volatility).filter(v=>v!=null&&v>0);
-    const avgIV  = ivVals.length ? ivVals.reduce((a,b)=>a+b,0)/ivVals.length : null;
-
-    renderVolCard(ticker, hvResult.hvCtx, avgIV);
-    document.getElementById('m-count').textContent = allContracts.length;
-    document.getElementById('metrics').style.display = 'grid';
-    document.getElementById('results-wrap').style.display = 'block';
-    render();
-
-    setTimeout(hideProgress, 800);
-
+    // Cache-bust so we always get the latest committed file
+    const res = await fetch(`data/options.json?_=${Date.now()}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const d = await res.json();
+    renderAll(d);
   } catch(e) {
-    hideProgress();
-    showErr('Search failed', e.message);
+    document.getElementById('data-info').innerHTML =
+      '<span style="color:var(--red)">No data file found — run the workflow first</span>';
     console.error(e);
   }
-
-  setBtnLoading(false);
-  searching = false;
 }
 
-// ── Vol card ──────────────────────────────────────────────────────────────
-function renderVolCard(ticker, volCtx, avgIV) {
-  document.getElementById('vc-ticker').textContent = ticker;
-  if (volCtx) {
-    const pct = volCtx.hvPct;
+function ageLabel(fetchedAt) {
+  // fetchedAt = "2025-06-01 14:30 UTC"
+  const fetched = new Date(fetchedAt.replace(' UTC','Z'));
+  const mins    = Math.round((Date.now() - fetched) / 60000);
+  if (mins < 1)  return 'just now';
+  if (mins < 60) return `${mins} min ago`;
+  const hrs = Math.round(mins / 60);
+  return `${hrs} hr ago`;
+}
+
+function renderAll(d) {
+  // Data bar
+  const age   = ageLabel(d.fetched_at);
+  const stale = (Date.now() - new Date(d.fetched_at.replace(' UTC','Z'))) > 45*60*1000;
+  document.getElementById('data-info').innerHTML =
+    `<strong>${d.ticker}</strong> · ${d.option_type}s · strike $${d.strike} ± $${d.range} · ` +
+    `fetched <span class="${stale?'stale':''}">${age}</span> (${d.fetched_at})`;
+
+  // Hide empty state
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('how-banner').style.display  = 'none';
+
+  // Vol card
+  const hv = d.hv_context;
+  document.getElementById('vc-ticker').textContent = d.ticker;
+  if (hv) {
+    const pct = hv.hvPct;
     const g   = document.getElementById('vc-gauge');
     g.style.width      = pct+'%';
     g.style.background = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--blue)';
-    document.getElementById('vc-hv30').textContent   = (volCtx.currentHV*100).toFixed(1)+'%';
-    document.getElementById('vc-hvpct').textContent  = pct+'th %ile';
-    document.getElementById('vc-hvpct').style.color  = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--blue)';
-    document.getElementById('vc-range').textContent  = (volCtx.hvMin*100).toFixed(1)+'% – '+(volCtx.hvMax*100).toFixed(1)+'%';
+    document.getElementById('vc-hv30').textContent  = (hv.currentHV*100).toFixed(1)+'%';
+    document.getElementById('vc-hvpct').textContent = pct+'th %ile';
+    document.getElementById('vc-hvpct').style.color = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--blue)';
+    document.getElementById('vc-range').textContent = (hv.hvMin*100).toFixed(1)+'% – '+(hv.hvMax*100).toFixed(1)+'%';
   } else {
-    ['vc-hv30','vc-hvpct','vc-range'].forEach(id => document.getElementById(id).textContent='n/a');
+    ['vc-hv30','vc-hvpct','vc-range'].forEach(id=>document.getElementById(id).textContent='n/a');
   }
-  if (avgIV!=null && avgIV>0) {
-    document.getElementById('vc-avgiv').textContent = (avgIV*100).toFixed(1)+'%';
-    if (volCtx?.currentHV) {
-      const r = avgIV / volCtx.currentHV;
-      document.getElementById('vc-ratio').textContent   = r.toFixed(2)+'x';
-      document.getElementById('vc-ratio').style.color   = r>=1.3?'var(--green)':r>=1.0?'var(--amber)':'var(--red)';
+  if (d.avg_iv) {
+    document.getElementById('vc-avgiv').textContent = (d.avg_iv*100).toFixed(1)+'%';
+    if (hv?.currentHV) {
+      const r = d.avg_iv / hv.currentHV;
+      document.getElementById('vc-ratio').textContent = r.toFixed(2)+'x';
+      document.getElementById('vc-ratio').style.color = r>=1.3?'var(--green)':r>=1.0?'var(--amber)':'var(--red)';
     }
   }
-  const ratio = avgIV&&volCtx?.currentHV ? avgIV/volCtx.currentHV : null;
-  const pct   = volCtx?.hvPct||0;
+  // Signal
+  const ratio = d.avg_iv && hv?.currentHV ? d.avg_iv/hv.currentHV : null;
+  const pct   = hv?.hvPct || 0;
   let sc,st,sd;
   if      (pct>=70 && ratio!=null && ratio>=1.2) { sc='high'; st='★ Strong sell';    sd='HV elevated + IV pricing in extra premium → ideal for sellers'; }
   else if (pct>=50 || (ratio!=null && ratio>=1.2)) { sc='med';  st='◎ Moderate sell'; sd='Reasonable vol environment — monitor for expansion'; }
   else                                             { sc='low';  st='◌ Caution';       sd='HV low historically — IV may still expand after entry'; }
   const sigEl = document.getElementById('vc-sig');
-  sigEl.className   = 'sig '+sc;
-  sigEl.textContent = st;
-  document.getElementById('vc-desc').textContent = '· '+sd;
-  document.getElementById('vol-card').style.display = 'block';
-}
+  sigEl.className='sig '+sc; sigEl.textContent=st;
+  document.getElementById('vc-desc').textContent='· '+sd;
+  document.getElementById('vol-card').style.display='block';
 
-// ── Table ─────────────────────────────────────────────────────────────────
-function sortBy(key) {
-  if (sortKey===key) { sortDir*=-1; } else { sortKey=key; sortDir=-1; }
+  // Metrics
+  document.getElementById('m-price').textContent  = d.current_price ? '$'+d.current_price.toFixed(2) : '—';
+  document.getElementById('m-strike').textContent = '$'+d.strike+' ± $'+d.range;
+  document.getElementById('m-count').textContent  = d.contracts.length;
+  document.getElementById('metrics').style.display='grid';
+
+  allContracts = d.contracts;
   render();
 }
-function fmt(v,d=2)   { return (v==null||isNaN(v)) ? '—' : (+v).toFixed(d); }
-function fmtPct(v)    { return (v==null||isNaN(v)||v<=0) ? '—' : (v*100).toFixed(1)+'%'; }
-function fmtK(v)      { if(v==null||isNaN(v)||v===0) return '—'; return v>=1000?(v/1000).toFixed(1)+'k':String(v); }
+
+function sortBy(key) { if(sortKey===key){sortDir*=-1;}else{sortKey=key;sortDir=-1;} render(); }
+function fmt(v,dp=2) { return (v==null||isNaN(v))?'—':(+v).toFixed(dp); }
+function fmtPct(v)   { return (v==null||isNaN(v)||v<=0)?'—':(v*100).toFixed(1)+'%'; }
+function fmtK(v)     { if(!v||isNaN(v))return'—'; return v>=1000?(v/1000).toFixed(1)+'k':String(v); }
 
 function render() {
-  const minDte = +document.getElementById('f-mindte').value || 1;
-  const maxDte = +document.getElementById('f-maxdte').value || 365;
-  const minOI  = +document.getElementById('f-oi').value    || 0;
-  const minVol = +document.getElementById('f-vol').value   || 0;
+  const minDte = +document.getElementById('f-mindte').value||1;
+  const maxDte = +document.getElementById('f-maxdte').value||365;
+  const minOI  = +document.getElementById('f-oi').value||0;
+  const minVol = +document.getElementById('f-vol').value||0;
 
   let filtered = allContracts.filter(o =>
-    o.dte >= minDte && o.dte <= maxDte &&
-    (o.open_interest||0) >= minOI &&
-    (o.volume||0) >= minVol
+    o.dte>=minDte && o.dte<=maxDte &&
+    (o.open_interest||0)>=minOI && (o.volume||0)>=minVol
   );
-
-  filtered.sort((a,b) => {
+  filtered.sort((a,b)=>{
     let av=a[sortKey], bv=b[sortKey];
-    if (av==null) av = sortDir>0 ? Infinity : -Infinity;
-    if (bv==null) bv = sortDir>0 ? Infinity : -Infinity;
+    if(av==null) av=sortDir>0?Infinity:-Infinity;
+    if(bv==null) bv=sortDir>0?Infinity:-Infinity;
     return (av-bv)*sortDir;
   });
 
@@ -637,56 +361,51 @@ function render() {
     document.getElementById('m-best').textContent    = '$'+best.premium_per_day.toFixed(3);
     document.getElementById('m-bestexp').textContent = best.expiration_date+' ('+best.dte+'d)';
   }
-
   document.getElementById('tbl-count').textContent = filtered.length+' contracts';
-  const tbody = document.getElementById('tbody');
+  document.getElementById('results-wrap').style.display = filtered.length ? 'block' : 'none';
 
+  const tbody = document.getElementById('tbody');
   if (!filtered.length) {
-    tbody.innerHTML = '<tr><td colspan="16" class="empty">No contracts match current filters.<br/>Try adjusting DTE range or widening the strike range.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="16" class="empty">No contracts match current filters.</td></tr>';
     return;
   }
-
-  tbody.innerHTML = filtered.slice(0,300).map((o,i) => {
-    const isTop  = i===0 && sortKey==='premium_per_day';
-    const barW   = Math.round((o.premium_per_day/maxPpd)*70);
-    const dSign  = o.delta_from_price>=0 ? '+' : '';
-    const dClass = o.delta_from_price<0 ? 'pos' : 'neg';
-    const pClass = isTop ? 'pday-top' : 'pday';
-    const crown  = isTop ? '<span class="crown">★</span>' : '';
-    const itm    = o.in_the_money
+  tbody.innerHTML = filtered.slice(0,300).map((o,i)=>{
+    const isTop = i===0 && sortKey==='premium_per_day';
+    const barW  = Math.round((o.premium_per_day/maxPpd)*70);
+    const dSign = o.delta_from_price>=0?'+':'';
+    const dCls  = o.delta_from_price<0?'pos':'neg';
+    const pCls  = isTop?'pday-top':'pday';
+    const crown = isTop?'<span class="crown">★</span>':'';
+    const itm   = o.in_the_money
       ? '<span style="color:var(--blue)">ITM</span>'
       : '<span style="color:var(--muted)">OTM</span>';
-    let ivCell = '—';
+    let ivCell='—';
     if (o.iv_vs_hv!=null && o.iv_vs_hv>0) {
-      const cls = o.iv_vs_hv>=1.3 ? 'ivh' : o.iv_vs_hv>=1.0 ? 'ivm' : 'ivl';
-      ivCell = `<span class="ivp ${cls}">${o.iv_vs_hv.toFixed(2)}x</span>`;
+      const c = o.iv_vs_hv>=1.3?'ivh':o.iv_vs_hv>=1.0?'ivm':'ivl';
+      ivCell = `<span class="ivp ${c}">${o.iv_vs_hv.toFixed(2)}x</span>`;
     }
     return `<tr class="${isTop?'top':''}">
       <td style="color:var(--muted)">${crown}${i+1}</td>
       <td><span class="tbadge ${o.option_type}">${o.option_type}</span></td>
-      <td>${o.expiration_date}</td>
-      <td>${o.dte}</td>
+      <td>${o.expiration_date}</td><td>${o.dte}</td>
       <td style="color:var(--amber)">$${fmt(o.strike)}</td>
-      <td class="${dClass}">${dSign}${fmt(o.delta_from_price)}</td>
-      <td>$${fmt(o.bid)}</td>
-      <td>$${fmt(o.ask)}</td>
-      <td>$${fmt(o.mid)}</td>
-      <td class="${pClass}">$${fmt(o.premium_per_day,3)}</td>
+      <td class="${dCls}">${dSign}${fmt(o.delta_from_price)}</td>
+      <td>$${fmt(o.bid)}</td><td>$${fmt(o.ask)}</td><td>$${fmt(o.mid)}</td>
+      <td class="${pCls}">$${fmt(o.premium_per_day,3)}</td>
       <td><div class="rb" style="width:${barW}px"></div></td>
-      <td>${fmtK(o.open_interest)}</td>
-      <td>${fmtK(o.volume)}</td>
+      <td>${fmtK(o.open_interest)}</td><td>${fmtK(o.volume)}</td>
       <td style="color:var(--muted)">${fmtPct(o.implied_volatility)}</td>
-      <td>${ivCell}</td>
-      <td>${itm}</td>
+      <td>${ivCell}</td><td>${itm}</td>
     </tr>`;
   }).join('');
 
-  // Update active sort header
   document.querySelectorAll('thead th').forEach(th=>th.classList.remove('act'));
-  const keys = ['rank','type','expiration_date','dte','strike','delta_from_price','bid','ask','mid','premium_per_day','bar','open_interest','volume','implied_volatility','iv_vs_hv','in_the_money'];
-  const idx = keys.indexOf(sortKey);
-  if (idx>=0) document.querySelectorAll('thead th')[idx].classList.add('act');
+  const keys=['rank','type','expiration_date','dte','strike','delta_from_price','bid','ask','mid','premium_per_day','bar','open_interest','volume','implied_volatility','iv_vs_hv','in_the_money'];
+  const idx=keys.indexOf(sortKey);
+  if(idx>=0) document.querySelectorAll('thead th')[idx].classList.add('act');
 }
+
+loadData();
 </script>
 </body>
 </html>

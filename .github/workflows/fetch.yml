@@ -1,7 +1,6 @@
 name: Fetch Options Data
 
 on:
-  # Run manually from GitHub Actions tab with custom inputs
   workflow_dispatch:
     inputs:
       ticker:
@@ -25,16 +24,14 @@ on:
         required: true
         default: '5'
 
-  # Also run on a schedule — every 30 minutes on weekdays during US market hours
-  # Uses last saved inputs from data/config.json if present
   schedule:
-    - cron: '*/30 13-21 * * 1-5'   # 13:00–21:00 UTC = 9am–5pm ET
+    - cron: '*/30 13-21 * * 1-5'
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # needed to commit data back to repo
+      contents: write
 
     steps:
       - name: Checkout repo
@@ -48,59 +45,175 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Determine inputs
-        id: inputs
+      - name: Resolve inputs (manual or from saved config)
+        id: cfg
         run: |
-          # Manual trigger uses workflow inputs
-          # Scheduled run reads from data/config.json (set by last manual run)
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "ticker=${{ github.event.inputs.ticker }}" >> $GITHUB_OUTPUT
+            echo "ticker=${{ github.event.inputs.ticker }}"         >> $GITHUB_OUTPUT
             echo "option_type=${{ github.event.inputs.option_type }}" >> $GITHUB_OUTPUT
-            echo "strike=${{ github.event.inputs.strike }}" >> $GITHUB_OUTPUT
-            echo "range=${{ github.event.inputs.range }}" >> $GITHUB_OUTPUT
+            echo "strike=${{ github.event.inputs.strike }}"         >> $GITHUB_OUTPUT
+            echo "range=${{ github.event.inputs.range }}"           >> $GITHUB_OUTPUT
           else
-            # Read from saved config
-            python3 -c "
+            python3 - <<'EOF'
           import json, os
           try:
               cfg = json.load(open('data/config.json'))
-              for k,v in cfg.items():
-                  print(f'{k}={v}')
           except:
-              print('ticker=MSTR')
-              print('option_type=call')
-              print('strike=400')
-              print('range=5')
-            " >> $GITHUB_OUTPUT
+              cfg = {'ticker':'MSTR','option_type':'call','strike':'400','range':'5'}
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              for k, v in cfg.items():
+                  f.write(f"{k}={v}\n")
+          EOF
           fi
 
       - name: Save config for scheduled runs
         if: github.event_name == 'workflow_dispatch'
         run: |
           mkdir -p data
-          python3 -c "
+          python3 - <<'EOF'
           import json
           cfg = {
-              'ticker': '${{ steps.inputs.outputs.ticker }}',
-              'option_type': '${{ steps.inputs.outputs.option_type }}',
-              'strike': '${{ steps.inputs.outputs.strike }}',
-              'range': '${{ steps.inputs.outputs.range }}'
+            'ticker':      '${{ steps.cfg.outputs.ticker }}',
+            'option_type': '${{ steps.cfg.outputs.option_type }}',
+            'strike':      '${{ steps.cfg.outputs.strike }}',
+            'range':       '${{ steps.cfg.outputs.range }}'
           }
-          json.dump(cfg, open('data/config.json', 'w'), indent=2)
-          "
+          json.dump(cfg, open('data/config.json','w'), indent=2)
+          EOF
 
-      - name: Fetch options data from Yahoo Finance
+      - name: Fetch options data
         env:
-          TICKER: ${{ steps.inputs.outputs.ticker }}
-          OPTION_TYPE: ${{ steps.inputs.outputs.option_type }}
-          STRIKE: ${{ steps.inputs.outputs.strike }}
-          RANGE: ${{ steps.inputs.outputs.range }}
-        run: python3 fetch_options.py
+          TICKER:      ${{ steps.cfg.outputs.ticker }}
+          OPTION_TYPE: ${{ steps.cfg.outputs.option_type }}
+          STRIKE:      ${{ steps.cfg.outputs.strike }}
+          RANGE:       ${{ steps.cfg.outputs.range }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, math, time, datetime, requests
 
-      - name: Commit and push data
+          TICKER      = os.environ['TICKER'].upper()
+          OPTION_TYPE = os.environ['OPTION_TYPE'].lower()
+          STRIKE      = float(os.environ['STRIKE'])
+          RANGE       = float(os.environ['RANGE'])
+
+          HEADERS = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/json',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Referer': 'https://finance.yahoo.com/',
+          }
+          S = requests.Session()
+          S.headers.update(HEADERS)
+
+          def get(url, retries=3):
+            for i in range(retries):
+              try:
+                r = S.get(url, timeout=20)
+                r.raise_for_status()
+                return r.json()
+              except Exception as e:
+                print(f'  attempt {i+1} failed: {e}')
+                if i < retries-1: time.sleep(2**i)
+            raise RuntimeError(f'Failed: {url}')
+
+          def calc_hv(closes, w=30):
+            if len(closes) < w+1: return []
+            hvs = []
+            for i in range(w, len(closes)):
+              sl = closes[i-w:i+1]
+              lr = [math.log(sl[j]/sl[j-1]) for j in range(1,len(sl)) if sl[j]>0 and sl[j-1]>0]
+              if len(lr) < 2: continue
+              mean = sum(lr)/len(lr)
+              v    = sum((x-mean)**2 for x in lr)/(len(lr)-1)
+              hvs.append(math.sqrt(v*252))
+            return hvs
+
+          def pctile(arr, val):
+            return round(sum(1 for x in arr if x<=val)/len(arr)*100) if arr else 0
+
+          # 1. Price history + HV
+          print(f'Fetching 1-year history for {TICKER}...')
+          ch  = get(f'https://query1.finance.yahoo.com/v8/finance/chart/{TICKER}?interval=1d&range=1y')
+          res = ch['chart']['result'][0]
+          closes = [c for c in res['indicators']['quote'][0].get('close',[]) if c]
+          current_price = res['meta'].get('regularMarketPrice', 0)
+          print(f'  Price: ${current_price:.2f}  Closes: {len(closes)}')
+
+          hv_ctx = None
+          if len(closes) >= 35:
+            hvs = calc_hv(closes, 30)
+            if hvs:
+              cur = hvs[-1]
+              hv_ctx = {'currentHV': round(cur,6), 'hvPct': pctile(hvs,cur),
+                        'hvMin': round(min(hvs),6), 'hvMax': round(max(hvs),6)}
+              print(f'  HV30: {cur*100:.1f}%  Pct: {hv_ctx["hvPct"]}th')
+
+          # 2. Expiry dates
+          print(f'Fetching expiry dates...')
+          od  = get(f'https://query1.finance.yahoo.com/v7/finance/options/{TICKER}')
+          ores = od['optionChain']['result'][0]
+          if not current_price:
+            current_price = ores['quote'].get('regularMarketPrice', 0)
+          expiries = ores.get('expirationDates', [])
+          print(f'  Found {len(expiries)} expiries')
+
+          # 3. Fetch each expiry
+          today = datetime.date.today()
+          contracts = []
+          for i, ts in enumerate(expiries):
+            exp  = datetime.date.fromtimestamp(ts)
+            dte  = max(1, (exp - today).days)
+            estr = exp.isoformat()
+            print(f'  [{i+1}/{len(expiries)}] {estr} DTE={dte}', end=' ')
+            try:
+              d = get(f'https://query1.finance.yahoo.com/v7/finance/options/{TICKER}?date={ts}')
+              r = d['optionChain']['result'][0]
+              rows = r['options'][0].get('calls' if OPTION_TYPE=='call' else 'puts', [])
+              hit  = [o for o in rows if o.get('strike') and abs(o['strike']-STRIKE)<=RANGE]
+              print(f'-> {len(hit)} matched')
+              for o in hit:
+                bid = o.get('bid') or 0
+                ask = o.get('ask') or 0
+                mid = (bid+ask)/2
+                iv  = o.get('impliedVolatility')
+                if iv and iv > 5: iv = iv/100
+                contracts.append({
+                  'option_type': OPTION_TYPE, 'expiration_date': estr, 'dte': dte,
+                  'strike': o['strike'], 'bid': round(bid,4), 'ask': round(ask,4), 'mid': round(mid,4),
+                  'premium_per_day': round(mid/dte,6) if dte>0 else 0,
+                  'delta_from_price': round(o['strike']-current_price,2),
+                  'open_interest': o.get('openInterest') or 0,
+                  'volume': o.get('volume') or 0,
+                  'implied_volatility': round(iv,6) if iv else None,
+                  'iv_vs_hv': round(iv/hv_ctx['currentHV'],4) if iv and hv_ctx else None,
+                  'in_the_money': bool(o.get('inTheMoney',False)),
+                })
+              time.sleep(0.15)
+            except Exception as e:
+              print(f'ERROR: {e}')
+
+          contracts = [c for c in contracts if c['mid']>0 or c['bid']>0]
+          iv_vals = [c['implied_volatility'] for c in contracts if c['implied_volatility']]
+          avg_iv  = round(sum(iv_vals)/len(iv_vals),6) if iv_vals else None
+          print(f'\nTotal contracts: {len(contracts)}')
+
+          os.makedirs('data', exist_ok=True)
+          out = {
+            'fetched_at': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
+            'ticker': TICKER, 'option_type': OPTION_TYPE,
+            'strike': STRIKE, 'range': RANGE,
+            'current_price': round(current_price,2),
+            'hv_context': hv_ctx, 'avg_iv': avg_iv,
+            'contracts': contracts,
+          }
+          json.dump(out, open('data/options.json','w'), indent=2)
+          print('Saved data/options.json')
+          PYEOF
+
+      - name: Commit and push
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git diff --staged --quiet || git commit -m "Update options data $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git diff --staged --quiet || git commit -m "options data $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push

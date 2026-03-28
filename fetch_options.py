@@ -2,7 +2,7 @@
 fetch_options.py
 Yahoo Finance requires a crumb token since 2023.
 Flow: visit finance.yahoo.com to set cookies, fetch crumb, then append
-?crumb=xxx to every API call.
+?crumb=RcD6b18r73m to every API call.
 """
 import os, json, math, time, datetime, requests
 

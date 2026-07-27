@@ -1,12 +1,12 @@
 {
-  "fetched_at": "2026-07-27 20:49 UTC",
+  "fetched_at": "2026-07-27 21:59 UTC",
   "ticker": "MSTR",
   "option_type": "put",
   "strike": 130.0,
   "range": 5.0,
   "current_price": 98.65,
   "hv_context": {
-    "currentHV": 0.857467,
+    "currentHV": 0.862329,
     "hvPct": 80,
     "hvMin": 0.445362,
     "hvMax": 1.172094
@@ -26,7 +26,7 @@
       "open_interest": 332,
       "volume": 288,
       "implied_volatility": 0.953125,
-      "iv_vs_hv": 1.1116,
+      "iv_vs_hv": 1.1053,
       "in_the_money": true
     },
     {
@@ -42,7 +42,7 @@
       "open_interest": 14,
       "volume": 84,
       "implied_volatility": 0.980469,
-      "iv_vs_hv": 1.1434,
+      "iv_vs_hv": 1.137,
       "in_the_money": true
     },
     {
@@ -58,7 +58,7 @@
       "open_interest": 50,
       "volume": 4,
       "implied_volatility": 1.050786,
-      "iv_vs_hv": 1.2255,
+      "iv_vs_hv": 1.2185,
       "in_the_money": true
     },
     {
@@ -74,7 +74,7 @@
       "open_interest": 6,
       "volume": 1,
       "implied_volatility": 1.177738,
-      "iv_vs_hv": 1.3735,
+      "iv_vs_hv": 1.3658,
       "in_the_money": true
     },
     {
@@ -90,7 +90,7 @@
       "open_interest": 39,
       "volume": 4,
       "implied_volatility": 1.000005,
-      "iv_vs_hv": 1.1662,
+      "iv_vs_hv": 1.1597,
       "in_the_money": true
     },
     {
@@ -106,7 +106,7 @@
       "open_interest": 261,
       "volume": 77,
       "implied_volatility": 1.027349,
-      "iv_vs_hv": 1.1981,
+      "iv_vs_hv": 1.1914,
       "in_the_money": true
     },
     {
@@ -122,7 +122,7 @@
       "open_interest": 25,
       "volume": 1,
       "implied_volatility": 1.050786,
-      "iv_vs_hv": 1.2255,
+      "iv_vs_hv": 1.2185,
       "in_the_money": true
     },
     {
@@ -138,7 +138,7 @@
       "open_interest": 3,
       "volume": 1,
       "implied_volatility": 1.074223,
-      "iv_vs_hv": 1.2528,
+      "iv_vs_hv": 1.2457,
       "in_the_money": true
     },
     {
@@ -154,7 +154,7 @@
       "open_interest": 2,
       "volume": 5,
       "implied_volatility": 1.097661,
-      "iv_vs_hv": 1.2801,
+      "iv_vs_hv": 1.2729,
       "in_the_money": true
     },
     {
@@ -170,7 +170,7 @@
       "open_interest": 9,
       "volume": 1,
       "implied_volatility": 1.121098,
-      "iv_vs_hv": 1.3075,
+      "iv_vs_hv": 1.3001,
       "in_the_money": true
     },
     {
@@ -186,7 +186,7 @@
       "open_interest": 49,
       "volume": 2,
       "implied_volatility": 1.144536,
-      "iv_vs_hv": 1.3348,
+      "iv_vs_hv": 1.3273,
       "in_the_money": true
     },
     {
@@ -202,7 +202,7 @@
       "open_interest": 232,
       "volume": 138,
       "implied_volatility": 0.845705,
-      "iv_vs_hv": 0.9863,
+      "iv_vs_hv": 0.9807,
       "in_the_money": true
     },
     {
@@ -218,7 +218,7 @@
       "open_interest": 1184,
       "volume": 78,
       "implied_volatility": 0.876954,
-      "iv_vs_hv": 1.0227,
+      "iv_vs_hv": 1.017,
       "in_the_money": true
     },
     {
@@ -234,7 +234,7 @@
       "open_interest": 39,
       "volume": 31,
       "implied_volatility": 0.921876,
-      "iv_vs_hv": 1.0751,
+      "iv_vs_hv": 1.0691,
       "in_the_money": true
     },
     {
@@ -250,7 +250,7 @@
       "open_interest": 267,
       "volume": 4,
       "implied_volatility": 0.793947,
-      "iv_vs_hv": 0.9259,
+      "iv_vs_hv": 0.9207,
       "in_the_money": true
     },
     {
@@ -266,7 +266,7 @@
       "open_interest": 228,
       "volume": 2,
       "implied_volatility": 0.811525,
-      "iv_vs_hv": 0.9464,
+      "iv_vs_hv": 0.9411,
       "in_the_money": true
     },
     {
@@ -282,7 +282,7 @@
       "open_interest": 70,
       "volume": 3,
       "implied_volatility": 0.782229,
-      "iv_vs_hv": 0.9123,
+      "iv_vs_hv": 0.9071,
       "in_the_money": true
     },
     {
@@ -298,7 +298,7 @@
       "open_interest": 2108,
       "volume": 45,
       "implied_volatility": 0.773196,
-      "iv_vs_hv": 0.9017,
+      "iv_vs_hv": 0.8966,
       "in_the_money": true
     },
     {
@@ -314,7 +314,7 @@
       "open_interest": 7379,
       "volume": 9,
       "implied_volatility": 0.777834,
-      "iv_vs_hv": 0.9071,
+      "iv_vs_hv": 0.902,
       "in_the_money": true
     },
     {
@@ -330,7 +330,7 @@
       "open_interest": 1555,
       "volume": 3,
       "implied_volatility": 0.782717,
-      "iv_vs_hv": 0.9128,
+      "iv_vs_hv": 0.9077,
       "in_the_money": true
     },
     {
@@ -346,7 +346,7 @@
       "open_interest": 92,
       "volume": 134,
       "implied_volatility": 0.74512,
-      "iv_vs_hv": 0.869,
+      "iv_vs_hv": 0.8641,
       "in_the_money": true
     },
     {
@@ -362,7 +362,7 @@
       "open_interest": 70,
       "volume": 31,
       "implied_volatility": 0.768069,
-      "iv_vs_hv": 0.8957,
+      "iv_vs_hv": 0.8907,
       "in_the_money": true
     },
     {
@@ -378,7 +378,7 @@
       "open_interest": 8,
       "volume": 14,
       "implied_volatility": 0.756106,
-      "iv_vs_hv": 0.8818,
+      "iv_vs_hv": 0.8768,
       "in_the_money": true
     },
     {
@@ -394,7 +394,7 @@
       "open_interest": 12,
       "volume": 25,
       "implied_volatility": 0.74634,
-      "iv_vs_hv": 0.8704,
+      "iv_vs_hv": 0.8655,
       "in_the_money": true
     },
     {
@@ -410,7 +410,7 @@
       "open_interest": 1293,
       "volume": 82,
       "implied_volatility": 0.746829,
-      "iv_vs_hv": 0.871,
+      "iv_vs_hv": 0.8661,
       "in_the_money": true
     },
     {
@@ -426,7 +426,7 @@
       "open_interest": 1407,
       "volume": 21,
       "implied_volatility": 0.739993,
-      "iv_vs_hv": 0.863,
+      "iv_vs_hv": 0.8581,
       "in_the_money": true
     },
     {
@@ -442,7 +442,7 @@
       "open_interest": 971,
       "volume": 3,
       "implied_volatility": 0.804567,
-      "iv_vs_hv": 0.9383,
+      "iv_vs_hv": 0.933,
       "in_the_money": true
     },
     {
@@ -458,7 +458,7 @@
       "open_interest": 977,
       "volume": 5,
       "implied_volatility": 0.759402,
-      "iv_vs_hv": 0.8856,
+      "iv_vs_hv": 0.8806,
       "in_the_money": true
     },
     {
@@ -474,7 +474,7 @@
       "open_interest": 966,
       "volume": 2,
       "implied_volatility": 0.756594,
-      "iv_vs_hv": 0.8824,
+      "iv_vs_hv": 0.8774,
       "in_the_money": true
     },
     {
@@ -490,7 +490,7 @@
       "open_interest": 982,
       "volume": 23,
       "implied_volatility": 0.752688,
-      "iv_vs_hv": 0.8778,
+      "iv_vs_hv": 0.8729,
       "in_the_money": true
     },
     {
@@ -506,7 +506,7 @@
       "open_interest": 483,
       "volume": 1,
       "implied_volatility": 0.769534,
-      "iv_vs_hv": 0.8974,
+      "iv_vs_hv": 0.8924,
       "in_the_money": true
     },
     {
@@ -522,7 +522,7 @@
       "open_interest": 473,
       "volume": 8,
       "implied_volatility": 0.767092,
-      "iv_vs_hv": 0.8946,
+      "iv_vs_hv": 0.8896,
       "in_the_money": true
     },
     {
@@ -538,7 +538,7 @@
       "open_interest": 179,
       "volume": 2,
       "implied_volatility": 0.760745,
-      "iv_vs_hv": 0.8872,
+      "iv_vs_hv": 0.8822,
       "in_the_money": true
     },
     {
@@ -554,7 +554,7 @@
       "open_interest": 1038,
       "volume": 10,
       "implied_volatility": 0.764773,
-      "iv_vs_hv": 0.8919,
+      "iv_vs_hv": 0.8869,
       "in_the_money": true
     },
     {
@@ -570,7 +570,7 @@
       "open_interest": 2611,
       "volume": 1,
       "implied_volatility": 0.758364,
-      "iv_vs_hv": 0.8844,
+      "iv_vs_hv": 0.8794,
       "in_the_money": true
     },
     {
@@ -586,7 +586,7 @@
       "open_interest": 768,
       "volume": 1,
       "implied_volatility": 0.753115,
-      "iv_vs_hv": 0.8783,
+      "iv_vs_hv": 0.8734,
       "in_the_money": true
     },
     {
@@ -602,7 +602,7 @@
       "open_interest": 1027,
       "volume": 12,
       "implied_volatility": 0.759768,
-      "iv_vs_hv": 0.8861,
+      "iv_vs_hv": 0.8811,
       "in_the_money": true
     },
     {
@@ -618,7 +618,7 @@
       "open_interest": 1287,
       "volume": 11,
       "implied_volatility": 0.754275,
-      "iv_vs_hv": 0.8797,
+      "iv_vs_hv": 0.8747,
       "in_the_money": true
     },
     {
@@ -634,7 +634,7 @@
       "open_interest": 1072,
       "volume": 2,
       "implied_volatility": 0.748171,
-      "iv_vs_hv": 0.8725,
+      "iv_vs_hv": 0.8676,
       "in_the_money": true
     },
     {
@@ -650,7 +650,7 @@
       "open_interest": 356,
       "volume": 5,
       "implied_volatility": 0.759036,
-      "iv_vs_hv": 0.8852,
+      "iv_vs_hv": 0.8802,
       "in_the_money": true
     },
     {
@@ -666,7 +666,7 @@
       "open_interest": 386,
       "volume": 30,
       "implied_volatility": 0.750918,
-      "iv_vs_hv": 0.8757,
+      "iv_vs_hv": 0.8708,
       "in_the_money": true
     },
     {
@@ -682,7 +682,7 @@
       "open_interest": 132,
       "volume": 1,
       "implied_volatility": 0.74927,
-      "iv_vs_hv": 0.8738,
+      "iv_vs_hv": 0.8689,
       "in_the_money": true
     },
     {
@@ -698,7 +698,7 @@
       "open_interest": 1322,
       "volume": 1,
       "implied_volatility": 0.758914,
-      "iv_vs_hv": 0.8851,
+      "iv_vs_hv": 0.8801,
       "in_the_money": true
     },
     {
@@ -714,7 +714,7 @@
       "open_interest": 344,
       "volume": 31,
       "implied_volatility": 0.754458,
-      "iv_vs_hv": 0.8799,
+      "iv_vs_hv": 0.8749,
       "in_the_money": true
     },
     {
@@ -730,7 +730,7 @@
       "open_interest": 360,
       "volume": 4,
       "implied_volatility": 0.749819,
-      "iv_vs_hv": 0.8745,
+      "iv_vs_hv": 0.8695,
       "in_the_money": true
     },
     {
@@ -746,7 +746,7 @@
       "open_interest": 472,
       "volume": 3,
       "implied_volatility": 0.754763,
-      "iv_vs_hv": 0.8802,
+      "iv_vs_hv": 0.8753,
       "in_the_money": true
     },
     {
@@ -762,7 +762,7 @@
       "open_interest": 611,
       "volume": 2,
       "implied_volatility": 0.751864,
-      "iv_vs_hv": 0.8768,
+      "iv_vs_hv": 0.8719,
       "in_the_money": true
     },
     {
@@ -778,7 +778,7 @@
       "open_interest": 293,
       "volume": 103,
       "implied_volatility": 0.743106,
-      "iv_vs_hv": 0.8666,
+      "iv_vs_hv": 0.8617,
       "in_the_money": true
     },
     {
@@ -794,7 +794,7 @@
       "open_interest": 699,
       "volume": 4,
       "implied_volatility": 0.750918,
-      "iv_vs_hv": 0.8757,
+      "iv_vs_hv": 0.8708,
       "in_the_money": true
     },
     {
@@ -810,7 +810,7 @@
       "open_interest": 362,
       "volume": 1,
       "implied_volatility": 0.746249,
-      "iv_vs_hv": 0.8703,
+      "iv_vs_hv": 0.8654,
       "in_the_money": true
     },
     {
@@ -826,7 +826,7 @@
       "open_interest": 382,
       "volume": 4,
       "implied_volatility": 0.744021,
-      "iv_vs_hv": 0.8677,
+      "iv_vs_hv": 0.8628,
       "in_the_money": true
     },
     {
@@ -842,7 +842,7 @@
       "open_interest": 125,
       "volume": 1,
       "implied_volatility": 0.751254,
-      "iv_vs_hv": 0.8761,
+      "iv_vs_hv": 0.8712,
       "in_the_money": true
     },
     {
@@ -858,7 +858,7 @@
       "open_interest": 460,
       "volume": 5,
       "implied_volatility": 0.745516,
-      "iv_vs_hv": 0.8694,
+      "iv_vs_hv": 0.8645,
       "in_the_money": true
     },
     {
@@ -874,7 +874,7 @@
       "open_interest": 499,
       "volume": 1,
       "implied_volatility": 0.739566,
-      "iv_vs_hv": 0.8625,
+      "iv_vs_hv": 0.8576,
       "in_the_money": true
     },
     {
@@ -890,7 +890,7 @@
       "open_interest": 340,
       "volume": 1,
       "implied_volatility": 0.754244,
-      "iv_vs_hv": 0.8796,
+      "iv_vs_hv": 0.8747,
       "in_the_money": true
     },
     {
@@ -906,7 +906,7 @@
       "open_interest": 96,
       "volume": 16,
       "implied_volatility": 0.75635,
-      "iv_vs_hv": 0.8821,
+      "iv_vs_hv": 0.8771,
       "in_the_money": true
     },
     {
@@ -922,7 +922,7 @@
       "open_interest": 333,
       "volume": 9,
       "implied_volatility": 0.729098,
-      "iv_vs_hv": 0.8503,
+      "iv_vs_hv": 0.8455,
       "in_the_money": true
     },
     {
@@ -938,7 +938,7 @@
       "open_interest": 109,
       "volume": 13,
       "implied_volatility": 0.731753,
-      "iv_vs_hv": 0.8534,
+      "iv_vs_hv": 0.8486,
       "in_the_money": true
     },
     {
@@ -954,7 +954,7 @@
       "open_interest": 194,
       "volume": 2,
       "implied_volatility": 0.724337,
-      "iv_vs_hv": 0.8447,
+      "iv_vs_hv": 0.84,
       "in_the_money": true
     },
     {
@@ -970,7 +970,7 @@
       "open_interest": 334,
       "volume": 2,
       "implied_volatility": 0.724795,
-      "iv_vs_hv": 0.8453,
+      "iv_vs_hv": 0.8405,
       "in_the_money": true
     }
   ]

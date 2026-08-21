@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-08-21 20:17 UTC",
+  "fetched_at": "2026-08-21 20:47 UTC",
   "ticker": "MSTR",
   "option_type": "put",
   "strike": 130.0,
@@ -11,7 +11,7 @@
     "hvMin": 0.473155,
     "hvMax": 1.172094
   },
-  "avg_iv": 0.780252,
+  "avg_iv": 0.780285,
   "contracts": [
     {
       "option_type": "put",
@@ -274,15 +274,15 @@
       "expiration_date": "2026-09-25",
       "dte": 35,
       "strike": 130.0,
-      "bid": 17.25,
+      "bid": 17.3,
       "ask": 18.75,
-      "mid": 18.0,
-      "premium_per_day": 0.514286,
+      "mid": 18.025,
+      "premium_per_day": 0.515,
       "delta_from_price": 10.75,
       "open_interest": 60,
       "volume": 61,
-      "implied_volatility": 0.761721,
-      "iv_vs_hv": 1.0788,
+      "implied_volatility": 0.76343,
+      "iv_vs_hv": 1.0813,
       "in_the_money": true
     },
     {

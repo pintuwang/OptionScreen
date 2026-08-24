@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-08-24 20:21 UTC",
+  "fetched_at": "2026-08-24 20:56 UTC",
   "ticker": "MSTR",
   "option_type": "put",
   "strike": 130.0,
@@ -40,7 +40,7 @@
       "premium_per_day": 1.66875,
       "delta_from_price": 3.37,
       "open_interest": 142,
-      "volume": 2336,
+      "volume": 2337,
       "implied_volatility": 0.827883,
       "iv_vs_hv": 1.182,
       "in_the_money": true

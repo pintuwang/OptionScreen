@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-08-26 20:27 UTC",
+  "fetched_at": "2026-08-26 23:56 UTC",
   "ticker": "MSTR",
   "option_type": "put",
   "strike": 130.0,
@@ -11,7 +11,7 @@
     "hvMin": 0.526607,
     "hvMax": 1.172094
   },
-  "avg_iv": 0.688883,
+  "avg_iv": 0.688958,
   "contracts": [
     {
       "option_type": "put",
@@ -419,14 +419,14 @@
       "dte": 16,
       "strike": 130.0,
       "bid": 10.7,
-      "ask": 11.3,
-      "mid": 11.0,
-      "premium_per_day": 0.6875,
+      "ask": 11.35,
+      "mid": 11.025,
+      "premium_per_day": 0.689062,
       "delta_from_price": 6.81,
       "open_interest": 243,
       "volume": 14,
-      "implied_volatility": 0.650394,
-      "iv_vs_hv": 0.9323,
+      "implied_volatility": 0.652836,
+      "iv_vs_hv": 0.9358,
       "in_the_money": true
     },
     {
@@ -562,15 +562,15 @@
       "expiration_date": "2026-09-25",
       "dte": 30,
       "strike": 125.0,
-      "bid": 10.1,
+      "bid": 10.15,
       "ask": 10.9,
-      "mid": 10.5,
-      "premium_per_day": 0.35,
+      "mid": 10.525,
+      "premium_per_day": 0.350833,
       "delta_from_price": 1.81,
       "open_interest": 516,
       "volume": 322,
-      "implied_volatility": 0.664188,
-      "iv_vs_hv": 0.9521,
+      "implied_volatility": 0.666019,
+      "iv_vs_hv": 0.9547,
       "in_the_money": true
     },
     {
@@ -642,15 +642,15 @@
       "expiration_date": "2026-09-25",
       "dte": 30,
       "strike": 130.0,
-      "bid": 13.15,
+      "bid": 13.2,
       "ask": 14.05,
-      "mid": 13.6,
-      "premium_per_day": 0.453333,
+      "mid": 13.625,
+      "premium_per_day": 0.454167,
       "delta_from_price": 6.81,
       "open_interest": 92,
       "volume": 3,
-      "implied_volatility": 0.668582,
-      "iv_vs_hv": 0.9584,
+      "implied_volatility": 0.670413,
+      "iv_vs_hv": 0.961,
       "in_the_money": true
     },
     {
